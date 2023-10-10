@@ -1,0 +1,16 @@
+<!-- result_details.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Result Details</title>
+</head>
+<body>
+    <h1>Result Details</h1>
+    <h2>Full Row Information:</h2>
+    <ul>
+        {% for key, value in result_details.items() %}
+            <li><strong>{{ key }}:</strong> {{ value }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

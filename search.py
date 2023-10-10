@@ -1,5 +1,6 @@
 import pymongo
 from flask import Flask, render_template, request
+from bson import ObjectId
 
 # https://www.w3schools.com/python/python_mongodb_find.asp
 client = pymongo.MongoClient("mongodb+srv://lkara4:oaj2612ceW85TxlR@cluster1.ctkteaw.mongodb.net/?retryWrites=true&w=majority")
@@ -34,9 +35,22 @@ def index():
         query = {"$text": {"$search": search_string}}
 
         # Perform the text search and sorting
-        results = collection.find(query).sort(sort_field)
+        cursor = collection.find(query).sort(sort_field)
+
+        # Retrieve only the "question" field for display on the results page
+        results = [result["question"] for result in cursor]
+
+        # Perform the text search and sorting
+        # results = collection.find(query).sort(sort_field)
 
     return render_template('index.html', results=results)
+
+@app.route('/result/<question>')
+def result_details(question):
+    # Use 'author' to fetch the full row of information from your database
+    result_details = collection.find_one({"question": question})
+
+    return render_template('result_details.html', result_details=result_details)
 
 if __name__ == '__main__':
     app.run(debug=True)
