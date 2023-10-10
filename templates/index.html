@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>MongoDB Atlas Search</title>
+</head>
+<body>
+    <h1>MongoDB Atlas Search</h1>
+
+    <form method="POST">
+        <label for="search_string">Enter a search string:</label>
+        <input type="text" id="search_string" name="search_string" required>
+        <button type="submit">Search</button>
+
+        <label for="sort_by">Sort by:</label>
+        <select id="sort_by" name="sort_by">
+            <option value="relevance">Relevance</option>
+            <option value="newest">Date (Newest)</option>
+            <option value="oldest">Date (Oldest)</option>
+        </select>
+    </form>
+
+    <h2>Search Results:</h2>
+    <ul>
+        {% for result in results %}
+            <li>{{ result }}</li>
+        {% endfor %}
+    </ul>
+
+    <!-- Include the search.js file -->
+    <script src="static/search.js"></script>
+
+    <!-- Include the sort.js file -->
+    <script src="static/sort.js"></script>
+
+</body>
+</html>
+
+
+
